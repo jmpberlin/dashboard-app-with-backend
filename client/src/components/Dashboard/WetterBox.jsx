@@ -5,7 +5,9 @@ const WetterBox = () => {
   useEffect(() => {}, []);
   return (
     <div>
-      <h4>Hello from the WetterBox Component</h4>
+      <h4>#Wetter</h4>
+      {/* CHECK OUT OPENWEATHERMAP DOCUMENTATION! */}
+      {/* IMPLEMENT WEATHER -> DO THE STYLING -> think about creating inputfields */}
     </div>
   );
 };

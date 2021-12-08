@@ -15,11 +15,9 @@ const TwitterBox = () => {
     // after that an interval is being started, that gets the new tweets every 8 secs
     const interval = setInterval(() => {
       axios.get('/api/twitter/').then((resFromBackend) => {
-        console.log(resFromBackend);
-        setTwitterPost(resFromBackend.data.resFromTwitter.data[0].text);
-        setTwitterUser(
-          resFromBackend.data.resFromTwitter.includes.users[0].name
-        );
+        let apiData = resFromBackend.data.resFromTwitter;
+        setTwitterPost(apiData.data[0].text);
+        setTwitterUser(apiData.includes.users[0].name);
       });
     }, 8000);
     // cleanup function clears the interval, when the component unmounts and prevents data leaks
@@ -31,7 +29,7 @@ const TwitterBox = () => {
   return (
     <div>
       <h4>#Berlin</h4>
-      <p>{twitterUser}</p>
+      <p>Tweet by {twitterUser}</p>
       <p>{twitterPost}</p>
     </div>
   );
