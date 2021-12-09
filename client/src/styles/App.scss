@@ -1,6 +1,7 @@
-$tablet: 769px;
-$desktop: 1366px;
-$lgdesktop: 1920px;
+$tablet: 481px;
+$smalldesktop: 769px;
+$desktop: 1025px;
+$lgdesktop: 1201px;
 
 $colors: (
   orange: #f7af9d,
@@ -27,12 +28,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   color: color(black);
-  background-image: linear-gradient(
-    to bottom right,
-    color(orange),
-    color(yellow)
-  );
-  // background-color: color(yellow);
+  background: linear-gradient(to bottom right, color(orange), color(yellow))
+    fixed;
   margin: 0;
 }
 p {
@@ -53,12 +50,12 @@ h5 {
 }
 
 .component-wrapper {
-  padding: 15px;
+  padding: 5px 15px 15px 15px;
 }
 .upperbox {
   display: flex;
   flex-direction: row;
-  justify-content: start;
+  justify-content: flex-start;
 }
 .content-div {
   margin-top: 10px;
@@ -68,13 +65,6 @@ h5 {
   box-shadow: 2px 2px 2px 2px rgb(123, 123, 123, 0.2);
 }
 
-.twitterbox {
-  border: 2px solid color(twitter);
-}
-
-.bvgbox {
-  border: 2px solid #e9d021;
-}
 .widgetbox {
   background-color: white;
   border-radius: $boxradius;
@@ -82,6 +72,17 @@ h5 {
   margin-top: $boxmargin;
   box-shadow: 2px 2px 2px 2px rgb(123, 123, 123, 0.2);
 }
+.twitterbox {
+  border: 1px solid color(twitter);
+}
+
+.bvgbox {
+  border: 1px solid #e9d021;
+}
+.wetterbox {
+  border: 1px solid #ea6e4b;
+}
+
 #icon {
   width: 40px;
   border-radius: $iconradius;
@@ -89,23 +90,61 @@ h5 {
 .icon {
   width: 25%;
 }
+.scrollable-x-div {
+  display: flex;
+  flex-direction: row;
+  // overflow-x: auto;
+
+  overflow: scroll;
+}
 
 /// media query for tablets
 
 @media screen and (min-width: $tablet) {
   p {
-    font-size: 1.5em;
+    font-size: 1.15em;
+  }
+  .component-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+  }
+  .widgetbox {
+    margin: $boxmargin;
+  }
+  .bvgbox {
+    flex-grow: 1;
+  }
+  .wetterbox {
+    flex-grow: 1;
+    width: 27%;
+  }
+  .scrollable-x-div {
+    display: flex;
+    height: 250px;
+    flex-direction: row;
+    overflow-x: auto;
   }
 }
 
 /// media query for desktops
 
-@media screen and (min-width: $desktop) {
+@media screen and (min-width: $smalldesktop) {
   p {
-    font-size: 2em;
+    font-size: 1.3em;
   }
 }
 
 // media query for large desktops
-@media screen and (min-width: $lgdesktop) {
+@media screen and (min-width: $desktop) {
+  .twitterbox {
+    width: 25%;
+  }
+  .bvgbox {
+    width: 25%;
+  }
+  .wetterbox {
+    width: 25%;
+  }
 }

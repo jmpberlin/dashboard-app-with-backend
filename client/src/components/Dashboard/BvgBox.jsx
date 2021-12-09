@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { formatTime } from '../../functions/helpers';
 import bvgicon from '../../helpers/bvg.png';
+import spinner from '../../helpers/spinner.gif';
 
 const BvgBox = () => {
   const [station, setStation] = useState({});
@@ -14,16 +15,16 @@ const BvgBox = () => {
       )
       .then((station) => {
         setStation(station.data[0]);
-        // console.log('this is the Station Tempelhof ', station.data[0]);
+        console.log('this is the Station Tempelhof ', station.data[0]);
       });
 
     axios
       .get(
-        'https://v5.bvg.transport.rest/stops/900000068201/departures?results=3'
+        'https://v5.bvg.transport.rest/stops/900000068201/departures?results=5'
       )
       .then((timetable) => {
-        setConnections(timetable.data);
-        // console.log('this is the timetable ', timetable);
+        setConnections(timetable.data.slice(0, 3));
+        console.log('this is the timetable ', timetable);
       });
   }, []);
   return (
@@ -38,6 +39,9 @@ const BvgBox = () => {
         </div>
       </div>
       <div className='content-div'>
+        {!connections.length && (
+          <img id='icon' src={spinner} alt='spinner - waiting for data'></img>
+        )}
         {connections.map((trip) => {
           return (
             <div key={trip.tripId}>

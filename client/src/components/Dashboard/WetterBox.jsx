@@ -2,20 +2,21 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import spinner from '../../helpers/spinner.gif';
 import openweathermap from '../../helpers/openweathermap.png';
+import { processWeatherObj } from '../../functions/helpers';
 
 const WetterBox = () => {
   const [weather, setWeather] = useState();
-  const [temp, setTemp] = useState(0);
+
   useEffect(() => {
-    console.log(process.env.REACT_APP_OPENWEATHERMAP_KEY);
+    // console.log(process.env.REACT_APP_OPENWEATHERMAP_KEY);
+    // `https://api.openweathermap.org/data/2.5/weather?q=berlin&lang=de&units=metric&appid=${process.env.REACT_APP_OPENWEATHERMAP_KEY}`
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=berlin&lang=de&units=metric&appid=${process.env.REACT_APP_OPENWEATHERMAP_KEY}`
+        `https://api.openweathermap.org/data/2.5/forecast?q=Berlin&lang=de&units=metric&appid=${process.env.REACT_APP_OPENWEATHERMAP_NEW}`
       )
       .then((weatherObj) => {
-        setWeather(weatherObj.data.weather);
-        setTemp(weatherObj.data.main.temp);
-        console.log(weatherObj.data);
+        let processed = processWeatherObj(weatherObj.data.list);
+        setWeather(processed);
       });
   }, []);
   if (!weather) {
@@ -37,13 +38,21 @@ const WetterBox = () => {
         </div>
       </div>
       <div className='content-div'>
-        <h4>{weather[0].description}</h4>
-        <p>{temp}°C </p>
-        <div>
-          <img
-            src={`http://openweathermap.org/img/wn/${'10d'}@2x.png`}
-            alt='weather icon'
-          />
+        <div className='scrollable-x-div'>
+          {weather.map((forecast) => {
+            return (
+              <div key={forecast.key}>
+                <div className='wetterbox-upper'>
+                  <h4>{forecast.time}</h4>
+                  <p>{forecast.description}</p>
+                  <p>{forecast.temp}</p>
+                </div>
+                <div className='wetterbox-lower'>
+                  <img src={forecast.icon} alt='' />
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </div>

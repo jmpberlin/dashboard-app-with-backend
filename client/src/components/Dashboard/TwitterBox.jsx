@@ -1,24 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import twittericon from '../../helpers/twittericon.png';
+import { processTwitterData } from '../../functions/helpers.js';
 
 const TwitterBox = () => {
   //The actual Post
-  const [twitterPost, setTwitterPost] = useState('');
-  //the related twitter User:
-  const [twitterUser, setTwitterUser] = useState('');
+  const [twitterPosts, setTwitterPosts] = useState([]);
+
   // once the component did render, the first tweet is fetched
   useEffect(() => {
-    axios.get('/api/twitter/').then((resFromBackend) => {
-      console.log(resFromBackend);
-      setTwitterPost(resFromBackend.data.resFromTwitter.data[0].text);
+    axios.get('/api/twitter/').then((resFromApi) => {
+      let processed = processTwitterData(resFromApi);
+      setTwitterPosts(processed);
     });
     // after that an interval is being started, that gets the new tweets every 8 secs
     const interval = setInterval(() => {
       axios.get('/api/twitter/').then((resFromBackend) => {
-        let apiData = resFromBackend.data.resFromTwitter;
-        setTwitterPost(apiData.data[0].text);
-        setTwitterUser(apiData.includes.users[0].name);
+        let processed = processTwitterData(resFromBackend);
+        setTwitterPosts(processed);
       });
     }, 8000);
     // cleanup function clears the interval, when the component unmounts and prevents data leaks
@@ -35,12 +34,24 @@ const TwitterBox = () => {
         </div>
         <div className=''>
           <h4>#Berlin</h4>
-          {twitterUser && <p>Tweet by {twitterUser}</p>}
         </div>
       </div>
-      <div className='content-div'>
-        <p>{twitterPost}</p>
-      </div>
+      {twitterPosts.map((postObj) => {
+        return (
+          <div key={postObj.post.id} className='content-div'>
+            <h4>
+              By{' '}
+              <a
+                target='new'
+                href={`https://twitter.com/${postObj.user.username}`}
+              >
+                {postObj.user.name}
+              </a>
+            </h4>
+            <p>{postObj.post.text}</p>
+          </div>
+        );
+      })}
     </div>
   );
 };
