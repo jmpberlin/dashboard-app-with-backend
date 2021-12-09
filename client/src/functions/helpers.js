@@ -43,10 +43,9 @@ export function processWeatherObj(raw) {
     processed[i].temp = copiedArr[i].main.temp + ' ° C';
     processed[i].key = copiedArr[i].dt;
     if (i === 0) {
-      console.log('running');
       processed[i].time = 'jetzt';
     }
   }
-  console.log(processed);
+
   return processed;
 }

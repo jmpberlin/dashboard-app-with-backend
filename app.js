@@ -15,6 +15,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+// HEROKU BUILD:
+app.use(express.static(path.join(__dirname, '/client/build')));
+
 app.use(express.static(path.join(__dirname, 'public')));
 
 // DB CONNECTION
@@ -27,6 +31,12 @@ const usersRouter = require('./routes/users');
 app.use('/api/user', usersRouter);
 const twitterRouter = require('./routes/twitter');
 app.use('/api/twitter', twitterRouter);
+
+// HEROKU BUILD ( Important to put before Error handler)
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + '/client/build/index.html');
+});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

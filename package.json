@@ -2,9 +2,11 @@
   "name": "dashboard-with-backend",
   "version": "0.0.0",
   "private": true,
+ 
   "scripts": {
     "dev": "DEBUG=project-management:* nodemon ./bin/www",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "build": "cd client && npm install && npm run build"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
