@@ -1,5 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { formatTime } from '../../functions/helpers';
+import bvgicon from '../../helpers/bvg.png';
 
 const BvgBox = () => {
   const [station, setStation] = useState({});
@@ -17,7 +19,7 @@ const BvgBox = () => {
 
     axios
       .get(
-        'https://v5.bvg.transport.rest/stops/900000068201/departures?results=5'
+        'https://v5.bvg.transport.rest/stops/900000068201/departures?results=3'
       )
       .then((timetable) => {
         setConnections(timetable.data);
@@ -25,24 +27,30 @@ const BvgBox = () => {
       });
   }, []);
   return (
-    <div>
-      <h4>#Tempelhof</h4>
-      <h5>{station.name}</h5>
-      <hr />
-      {connections.map((trip) => {
-        return (
-          <div key={trip.tripId}>
-            <p>
-              {trip.line.name} - {trip.direction}
-            </p>
-            {/* <p>{trip.plannedWhen}</p>
-            <p>
-              {trip.when} + {trip.delay}
-            </p> */}
-            <hr />
-          </div>
-        );
-      })}
+    <div className='bvgbox widgetbox'>
+      <div className='upperbox'>
+        <div className='icon'>
+          <img id='icon' src={bvgicon} alt='' />
+        </div>
+        <div>
+          <h4>{station.name}</h4>
+          <p>Abfahrten:</p>
+        </div>
+      </div>
+      <div className='content-div'>
+        {connections.map((trip) => {
+          return (
+            <div key={trip.tripId}>
+              <p>
+                {trip.line.name} - Richtung {trip.direction}
+              </p>
+              <p>Um : {formatTime(trip.when)}</p>
+
+              <hr />
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

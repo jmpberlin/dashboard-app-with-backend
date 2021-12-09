@@ -1,0 +1,111 @@
+$tablet: 769px;
+$desktop: 1366px;
+$lgdesktop: 1920px;
+
+$colors: (
+  orange: #f7af9d,
+  red: #c08497,
+  blue: #b0d0d3,
+  dark-blue: #004777,
+  yellow: #f5e5bd,
+  twitter: #1d9bf0,
+);
+
+@function color($color-name) {
+  @return map-get($colors, $color-name);
+}
+
+$boxradius: 10px;
+$boxpadding: 15px;
+$boxmargin: 10px;
+
+$iconradius: 20%;
+
+/// Styling for mobile:
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  color: color(black);
+  background-image: linear-gradient(
+    to bottom right,
+    color(orange),
+    color(yellow)
+  );
+  // background-color: color(yellow);
+  margin: 0;
+}
+p {
+  font-size: 1em;
+}
+
+h1 {
+  margin: 0;
+}
+h2 {
+}
+h3 {
+}
+h4 {
+  margin: 0;
+}
+h5 {
+}
+
+.component-wrapper {
+  padding: 15px;
+}
+.upperbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+.content-div {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid color(blue);
+  border-radius: $boxradius;
+  box-shadow: 2px 2px 2px 2px rgb(123, 123, 123, 0.2);
+}
+
+.twitterbox {
+  border: 2px solid color(twitter);
+}
+
+.bvgbox {
+  border: 2px solid #e9d021;
+}
+.widgetbox {
+  background-color: white;
+  border-radius: $boxradius;
+  padding: $boxpadding;
+  margin-top: $boxmargin;
+  box-shadow: 2px 2px 2px 2px rgb(123, 123, 123, 0.2);
+}
+#icon {
+  width: 40px;
+  border-radius: $iconradius;
+}
+.icon {
+  width: 25%;
+}
+
+/// media query for tablets
+
+@media screen and (min-width: $tablet) {
+  p {
+    font-size: 1.5em;
+  }
+}
+
+/// media query for desktops
+
+@media screen and (min-width: $desktop) {
+  p {
+    font-size: 2em;
+  }
+}
+
+// media query for large desktops
+@media screen and (min-width: $lgdesktop) {
+}

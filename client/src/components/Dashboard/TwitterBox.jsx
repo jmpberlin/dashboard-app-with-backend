@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import twittericon from '../../helpers/twittericon.png';
 
 const TwitterBox = () => {
   //The actual Post
@@ -27,10 +28,19 @@ const TwitterBox = () => {
   }, []);
 
   return (
-    <div>
-      <h4>#Berlin</h4>
-      <p>Tweet by {twitterUser}</p>
-      <p>{twitterPost}</p>
+    <div className='twitterbox widgetbox'>
+      <div className='upperbox'>
+        <div className='icon'>
+          <img src={twittericon} id='icon' alt='' />
+        </div>
+        <div className=''>
+          <h4>#Berlin</h4>
+          {twitterUser && <p>Tweet by {twitterUser}</p>}
+        </div>
+      </div>
+      <div className='content-div'>
+        <p>{twitterPost}</p>
+      </div>
     </div>
   );
 };
