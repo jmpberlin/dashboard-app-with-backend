@@ -8,7 +8,7 @@ export function formatTime(string) {
   return `${hours}:${minutes} Uhr`;
 }
 
-export function mergeUsersIntoPosts(users, posts) {
+function mergeUsersIntoPosts(users, posts) {
   let mergedArr = [];
   for (let i = 0; i <= 2; i++) {
     mergedArr.push({});
@@ -17,28 +17,40 @@ export function mergeUsersIntoPosts(users, posts) {
   }
   return mergedArr;
 }
+function formatTweet(tweet) {
+  let copied = tweet.slice();
+  let splitArr = copied.split(' ');
+  if (splitArr[0] === 'RT') {
+    splitArr.shift();
+    splitArr.unshift('Retweet from ');
+    return splitArr.join(' ');
+  } else {
+    return tweet;
+  }
+}
 
 export function processTwitterData(raw) {
   let apiData = raw.data.resFromTwitter;
   let users = apiData.includes.users.splice(0, 3);
   let posts = apiData.data.splice(0, 3);
   let mergedArr = mergeUsersIntoPosts(users, posts);
+  mergedArr.forEach((e) => {
+    e.post.text = formatTweet(e.post.text);
+  });
   return mergedArr;
 }
 export function processWeatherObj(raw) {
   let copiedArr = [...raw];
-
   copiedArr.forEach((e) => {
     e.date = new Date(e.dt_txt);
   });
   let processed = [];
   for (let i = 0; i <= 19; i++) {
     processed.push({});
-    processed[i].time = copiedArr[i].date.getHours() + ' Uhr';
+    processed[i].time = copiedArr[i].date.getHours().toString() + ' Uhr';
     processed[
       i
     ].icon = `http://openweathermap.org/img/wn/${copiedArr[i].weather[0].icon}@2x.png`;
-
     processed[i].description = copiedArr[i].weather[0].description;
     processed[i].temp = copiedArr[i].main.temp + ' ° C';
     processed[i].key = copiedArr[i].dt;
@@ -49,3 +61,8 @@ export function processWeatherObj(raw) {
 
   return processed;
 }
+
+export const openInNewTab = (url) => {
+  const newWindow = window.open(url, '_blank', 'noopener,noreferrer');
+  if (newWindow) newWindow.opener = null;
+};
