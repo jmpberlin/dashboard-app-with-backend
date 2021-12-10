@@ -1,6 +1,6 @@
 # DASHBOARD
 
-##little code challenge
+little code challenge
 
 -> find the deployed version here: https://dashboard-jmp-berlin.herokuapp.com/
 
