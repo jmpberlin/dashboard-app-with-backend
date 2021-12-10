@@ -22,7 +22,7 @@ function formatTweet(tweet) {
   let splitArr = copied.split(' ');
   if (splitArr[0] === 'RT') {
     splitArr.shift();
-    splitArr.unshift('Retweet from ');
+    splitArr.unshift('Retweet von ');
     return splitArr.join(' ');
   } else {
     return tweet;
@@ -45,6 +45,7 @@ export function processWeatherObj(raw) {
     e.date = new Date(e.dt_txt);
   });
   let processed = [];
+
   for (let i = 0; i <= 19; i++) {
     processed.push({});
     processed[i].time = copiedArr[i].date.getHours().toString() + ' Uhr';

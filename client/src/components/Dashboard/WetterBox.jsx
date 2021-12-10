@@ -38,13 +38,7 @@ const WetterBox = () => {
         setErrorMessage('Try different City!');
       });
   }, [refresh]);
-  // if (!weather) {
-  //   return (
-  //     <div className='widgetbox'>
-  //       <img id='icon' src={spinner} alt='spinner wheel' />
-  //     </div>
-  //   );
-  // }
+
   return (
     <div className='wetterbox widgetbox'>
       <div className='upperbox'>
