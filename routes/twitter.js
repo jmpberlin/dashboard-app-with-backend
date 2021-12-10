@@ -13,12 +13,12 @@ const token = process.env.BEARER_TOKEN;
 
 const endpointUrl = 'https://api.twitter.com/2/tweets/search/recent';
 
-async function getRequest() {
+async function getRequest(input) {
   // Edit query parameters below
   // specify a search query, and any additional fields that are required
   // by default, only the Tweet ID and text fields are returned
   const params = {
-    query: '#Berlin lang:de',
+    query: `#${input} lang:de`,
     'tweet.fields': 'author_id',
     max_results: '10',
     expansions: 'author_id',
@@ -40,8 +40,9 @@ async function getRequest() {
 }
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  getRequest().then((resFromReq) => {
+router.get('/:input', function (req, res, next) {
+  const input = req.params.input;
+  getRequest(input).then((resFromReq) => {
     res.json({ success: true, resFromTwitter: resFromReq });
   });
 });
