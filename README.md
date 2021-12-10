@@ -1,6 +1,6 @@
-# DASHBOARD
+# Dashboard
 
-little code challenge
+# a little dashboard-app utilizing 3 external Apis
 
 -> find the deployed version here: https://dashboard-jmp-berlin.herokuapp.com/
 
