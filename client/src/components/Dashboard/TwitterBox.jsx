@@ -56,20 +56,22 @@ const TwitterBox = () => {
           <button onClick={searchClickHandler}>Go!</button>
         </div>
       </div>
-      {twitterPosts.map((postObj) => {
-        return (
-          <div
-            key={postObj.post.id}
-            className='content-div t-link'
-            onClick={() => {
-              twitterClickHandler(postObj.user.username);
-            }}
-          >
-            <h4>By {postObj.user.name}</h4>
-            <p>{postObj.post.text}</p>
-          </div>
-        );
-      })}
+      <div className='scrollable-y-div'>
+        {twitterPosts.map((postObj) => {
+          return (
+            <div
+              key={postObj.post.id}
+              className='content-div t-link'
+              onClick={() => {
+                twitterClickHandler(postObj.user.username);
+              }}
+            >
+              <h4>By {postObj.user.name}</h4>
+              <p>{postObj.post.text}</p>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };
