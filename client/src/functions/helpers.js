@@ -51,7 +51,7 @@ export function processWeatherObj(raw) {
     processed[i].time = copiedArr[i].date.getHours().toString() + ' Uhr';
     processed[
       i
-    ].icon = `http://openweathermap.org/img/wn/${copiedArr[i].weather[0].icon}@2x.png`;
+    ].icon = `https://openweathermap.org/img/wn/${copiedArr[i].weather[0].icon}@2x.png`;
     processed[i].description = copiedArr[i].weather[0].description;
     processed[i].temp = copiedArr[i].main.temp + ' ° C';
     processed[i].key = copiedArr[i].dt;
