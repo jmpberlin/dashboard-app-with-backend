@@ -15,7 +15,7 @@ const BvgBox = () => {
       )
       .then((station) => {
         setStation(station.data[0]);
-        console.log('this is the Station Tempelhof ', station.data[0]);
+        // console.log('this is the Station Tempelhof ', station.data[0]);
       });
 
     axios
@@ -24,7 +24,7 @@ const BvgBox = () => {
       )
       .then((timetable) => {
         setConnections(timetable.data.slice(0, 3));
-        console.log('this is the timetable ', timetable);
+        // console.log('this is the timetable ', timetable);
       });
   }, []);
   return (
@@ -38,13 +38,13 @@ const BvgBox = () => {
           <p>Abfahrten:</p>
         </div>
       </div>
-      <div className='content-div'>
+      <div className='scrollable-y-div'>
         {!connections.length && (
           <img id='icon' src={spinner} alt='spinner - waiting for data'></img>
         )}
         {connections.map((trip) => {
           return (
-            <div key={trip.tripId}>
+            <div key={trip.tripId} className='content-div'>
               <p>
                 {trip.line.name} - Richtung {trip.direction}
               </p>
